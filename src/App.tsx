@@ -112,6 +112,15 @@ function App() {
           setStatus("ready");
           break;
 
+        case "complete":
+          const transcriptionStatus = data as TranscriptionStatus;
+          if (transcriptionStatus.result) {
+            setResult(transcriptionStatus.result);
+            setTime(transcriptionStatus.time ?? null);
+          }
+          setStatus("ready");
+          break;
+
         case "error":
           // Check if the data has an error property
           if ("error" in data) {
