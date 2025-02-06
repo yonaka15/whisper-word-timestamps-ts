@@ -23,6 +23,7 @@ async function hasWebGPU(): Promise<boolean> {
     const adapter = await navigator.gpu.requestAdapter();
     return !!adapter;
   } catch (e) {
+    console.error("WebGPU not supported:", e);
     return false;
   }
 }
@@ -108,15 +109,6 @@ function App() {
           break;
 
         case "ready":
-          setStatus("ready");
-          break;
-
-        case "complete":
-          const transcriptionStatus = data as TranscriptionStatus;
-          if (transcriptionStatus.result) {
-            setResult(transcriptionStatus.result);
-            setTime(transcriptionStatus.time ?? null);
-          }
           setStatus("ready");
           break;
 

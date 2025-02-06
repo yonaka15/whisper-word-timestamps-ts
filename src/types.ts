@@ -91,15 +91,6 @@ export interface TranscriptionStatus extends BaseStatus {
   time?: number;
 }
 
-interface ProgressInfo {
-  status: "progress";
-  name: string;
-  file: string;
-  progress: number;
-  loaded: number;
-  total?: number;
-}
-
 export interface LoadingStatus extends BaseStatus {
   status: status;
   data?: string;

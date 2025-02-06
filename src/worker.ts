@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 
-declare var self: WorkerGlobalScope & typeof globalThis;
+declare let self: WorkerGlobalScope & typeof globalThis;
 
 import {
   pipeline,
@@ -20,8 +20,10 @@ import type {
   TranscriptionStatus,
 } from "./types";
 
+type errorArg = string | unknown;
+
 // Enhanced debug logging
-const debugLog = (message: string, ...args: any[]): void => {
+const debugLog = (message: string, ...args: errorArg[]): void => {
   const timestamp = new Date().toISOString();
   console.log(`[Whisper Worker ${timestamp}] ${message}`, ...args);
 };
