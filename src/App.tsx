@@ -75,19 +75,30 @@ function App() {
           }
           break;
 
-        case "initiate":
-          setProgressItems((prev) => [...prev, data as ProgressData]);
+        case "progress":
+          // Handle both model loading progress and transcription progress
+          setProgressItems((prev) => {
+            const progressItem = {
+              status: "progress",
+              file: data.file,
+              progress: data.progress,
+              total: 100, // Progress comes as percentage
+            };
+
+            const existingIndex = prev.findIndex(
+              (item) => item.file === data.file
+            );
+            if (existingIndex >= 0) {
+              const newItems = [...prev];
+              newItems[existingIndex] = progressItem;
+              return newItems;
+            }
+            return [...prev, progressItem];
+          });
           break;
 
-        case "progress":
-          setProgressItems((prev) =>
-            prev.map((item) => {
-              if (item.file === (data as ProgressData).file) {
-                return { ...item, ...(data as ProgressData) };
-              }
-              return item;
-            })
-          );
+        case "initiate":
+          setProgressItems((prev) => [...prev, data as ProgressData]);
           break;
 
         case "done":

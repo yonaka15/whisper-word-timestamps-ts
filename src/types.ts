@@ -75,8 +75,10 @@ interface BaseStatus {
   error?: string;
 }
 
+type status = "loading" | "ready" | "error" | "progress";
+
 export interface LoadingStatus extends BaseStatus {
-  status: "loading" | "ready" | "error";
+  status: status;
   data?: string;
   file?: string;
   progress?: number;
@@ -87,6 +89,25 @@ export interface TranscriptionStatus extends BaseStatus {
   status: "complete" | "error";
   result?: TranscriptionResult;
   time?: number;
+}
+
+interface ProgressInfo {
+  status: "progress";
+  name: string;
+  file: string;
+  progress: number;
+  loaded: number;
+  total?: number;
+}
+
+export interface LoadingStatus extends BaseStatus {
+  status: status;
+  data?: string;
+  name?: string;
+  file?: string;
+  progress?: number;
+  loaded?: number;
+  total?: number;
 }
 
 export type {
